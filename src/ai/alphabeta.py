@@ -1,5 +1,6 @@
 from ai.evaluation import evaluate_board
 from engine.movelogic import get_all_legal_moves, is_checkmate, is_stalemate
+from ..engine.board import Board
 
 # Move ordering piece values for sorting captures
 MVV_LVA_VALUES = {
@@ -7,7 +8,7 @@ MVV_LVA_VALUES = {
 }
 
 
-def order_moves(board, moves):
+def order_moves(board: Board, moves):
     """
     Uses MVV-LVA (Most Valuable Victim - Least Valuable Attacker) heuristic.
     
@@ -34,7 +35,7 @@ def order_moves(board, moves):
     return [move for _, move in scored_moves]
 
 
-def alpha_beta_search(board, depth: int, alpha: float, beta: float, maximizing_player: bool):
+def alpha_beta_search(board: Board, depth: int, alpha: float, beta: float, maximizing_player: bool):
     color = 'white' if maximizing_player else 'black'
     
     if is_checkmate(board, color):
@@ -91,7 +92,7 @@ def alpha_beta_search(board, depth: int, alpha: float, beta: float, maximizing_p
         return (min_eval, best_move)
 
 
-def find_best_move(board, depth: int = 4):
+def find_best_move(board: Board, depth: int = 4):
     # use this function to find the best move for the current player
     maximizing = (board.turn == 'white')
     _, best_move = alpha_beta_search(board, depth, float('-inf'), float('inf'), maximizing)
