@@ -115,33 +115,9 @@ With perfect move ordering:
 
 Move ordering is critical for maximizing pruning efficiency. Better moves should be searched first.
 
-### Common Ordering Heuristics
+### Ordering Heuristics
 
 1. **MVV-LVA (Most Valuable Victim - Least Valuable Attacker)**
    - Prioritize capturing high-value pieces with low-value pieces
    - Example: Capture Queen with Pawn before capturing Pawn with Queen
    - Formula: `score = 10 * victim_value - attacker_value`
-
-2. **Killer Heuristic**
-   - If a move caused a cutoff at the same depth elsewhere, try it first
-
-3. **History Heuristic**
-   - Track moves that have been good across all positions
-
-4. **Principal Variation (PV)**
-   - The best move from the previous iteration of iterative deepening
-
-## Implementation Details
-
-### Depth-Limited Search
-
-Since chess has a huge game tree, we use depth-limited search:
-- Search to a fixed depth
-- Evaluate leaf nodes using a heuristic evaluation function
-- Quiescence search can extend search for unstable positions
-
-### Quiescence Search (Extension)
-
-After reaching the depth limit, continue searching captures only:
-- Avoids horizon effect (missing obvious tactics just beyond depth limit)
-- Ensures we evaluate "quiet" positions where no immediate captures exist
