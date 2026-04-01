@@ -8,6 +8,9 @@ class Board:
         self.move_history = []
         self.white_pieces = []
         self.black_pieces = []
+        # Tracking di chuyển của các quân (cho nhập thành và en passant)
+        self.piece_moved = {}  # {(r, c): True/False}
+        self.last_move = None  # ((start_r, start_c), (end_r, end_c)) hoặc None
         self.setup_board()
 
     def setup_board(self):
@@ -31,6 +34,8 @@ class Board:
                         self.white_pieces.append((r, c))
                     else:
                         self.black_pieces.append((r, c))
+                    # Ban đầu, tất cả quân cờ chưa di chuyển
+                    self.piece_moved[(r, c)] = False
 
     def copy(self):
         """Tạo một bản sao của bàn cờ (Rất cần cho AI)"""
@@ -62,6 +67,14 @@ class Board:
             self.black_pieces.remove(start_pos)
             self.black_pieces.append(end_pos)
         
+        # Tracking: quân này đã di chuyển
+        self.piece_moved[end_pos] = True
+        if start_pos in self.piece_moved:
+            del self.piece_moved[start_pos]
+        
+        # Lưu nước đi cuối để kiểm tra en passant
+        self.last_move = (start_pos, end_pos)
+        
         self.turn = 'black' if self.turn == 'white' else 'white'
 
     def undo_move(self):
@@ -85,4 +98,114 @@ class Board:
             else:
                 self.black_pieces.append(end_pos)
         
+        # Hoàn tác tracking di chuyển
+        if start_pos in self.piece_moved:
+            del self.piece_moved[start_pos]
+        self.piece_moved[end_pos] = True  # Hoàn lại trạng thái cũ nếu có
+        
+        # Hoàn tác last_move
+        if len(self.move_history) > 0:
+            prev_move = self.move_history[-1]
+            self.last_move = (prev_move[0], prev_move[1])
+        else:
+            self.last_move = None
+        
         self.turn = 'black' if self.turn == 'white' else 'white'
+
+    def is_check(self, color):
+        """
+        Kiểm tra xem Vua của phe color có đang bị chiếu không.
+        
+        Thuật toán:
+        1. Tìm vị trí Vua của phe color
+        2. Duyệt tất cả quân cờ của đối phương
+        3. Nếu bất kỳ quân nào có thể ăn được Vua -> Đang bị chiếu
+        
+        Chi phí: O(29) vì tối đa ~16 quân đối phương x ~3-4 nước đi cơ bản
+        """
+        # 1. Tìm vị trí quân Vua của phe mình
+        king_pos = None
+        for r in range(8):
+            for c in range(8):
+                piece = self.grid[r][c]
+                if piece and piece.name == 'K' and piece.color == color:
+                    king_pos = (r, c)
+                    break
+            if king_pos:
+                break
+        
+        if not king_pos:  # Không tìm thấy Vua (không bao giờ xảy ra)
+            return False
+        
+        # 2. Kiểm tra xem có quân đối thủ nào có thể ăn được Vua không
+        opponent_color = 'black' if color == 'white' else 'white'
+        opponent_pieces = self.white_pieces if opponent_color == 'white' else self.black_pieces
+        
+        for pos in opponent_pieces:
+            piece = self.grid[pos[0]][pos[1]]
+            if piece and piece.color == opponent_color:
+                # Lấy các nước đi cơ bản của quân đối thủ
+                moves = piece.get_valid_moves(pos, self.grid)
+                if king_pos in moves:
+                    return True
+        
+        return False
+
+    def is_checkmate(self, color):
+        """
+        Kiểm tra xem phe color có bị chiếu bí không.
+        Chiếu bí = đang bị chiếu AND không còn nước đi hợp lệ nào.
+        """
+        if not self.is_check(color):
+            return False
+        
+        # Nhập khẩu hàm để kiểm tra nước đi hợp lệ
+        from engine.movelogic import get_all_legal_moves
+        legal_moves = get_all_legal_moves(self, color)
+        
+        return len(legal_moves) == 0
+
+    def is_stalemate(self, color):
+        """
+        Kiểm tra xem phe color có bị bế tắc không.
+        Bế tắc = KHÔNG bị chiếu AND không còn nước đi hợp lệ nào.
+        Hòa cờ (Draw).
+        """
+        if self.is_check(color):
+            return False
+        
+        # Nhập khẩu hàm để kiểm tra nước đi hợp lệ
+        from engine.movelogic import get_all_legal_moves
+        legal_moves = get_all_legal_moves(self, color)
+        
+        return len(legal_moves) == 0
+
+    def is_terminal(self):
+        """
+        Kiểm tra xem ván đấu có kết thúc hay không.
+        
+        Trả về:
+        - 1: Phe white thắng (black bị chiếu bí)
+        - -1: Phe black thắng (white bị chiếu bí)
+        - 0: Hòa cờ (bế tắc)
+        - None: Trò chơi vẫn đang tiếp diễn
+        
+        Hàm này giúp AI biết khi nào nên dừng duyệt cây (Alpha-Beta)
+        hoặc dừng mô phỏng (MCTS).
+        """
+        # Kiểm tra chiếu bí cho phe đỏ (phe không có lượt đi)
+        if self.turn == 'white':
+            # Nước đi tiếp theo là của white, nên black vừa đi xong
+            if self.is_checkmate('white'):
+                return -1  # Black thắng
+            if self.is_stalemate('white'):
+                return 0   # Hòa
+        else:
+            # Nước đi tiếp theo là của black, nên white vừa đi xong
+            if self.is_checkmate('black'):
+                return 1   # White thắng
+            if self.is_stalemate('black'):
+                return 0   # Hòa
+        
+        # Trò chơi vẫn đang tiếp diễn
+        return None
