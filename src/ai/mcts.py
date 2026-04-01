@@ -1,59 +1,86 @@
-"AI GEN NÊN CHỈ MANG TÍNH CHẤT THAM KHẢO"
-
-
 import math
 import random
+from engine.movelogic import get_all_legal_moves
+from engine.board import Board
 
 class MCTSNode:
     def __init__(self, board, parent=None, move=None):
-        self.board = board.copy()
+        self.board = board
         self.parent = parent
         self.move = move
         self.children = []
         self.wins = 0
         self.visits = 0
-        self.untried_moves = list(board.legal_moves)
 
-    def ucb1_value(self, exploration_constant=1.41):
+        self.untried_moves = get_all_legal_moves(board, board.turn)
+
+    def is_fully_expanded(self):
+        return len(self.untried_moves) == 0
+
+    def ucb1(self, c=1.414):
         if self.visits == 0:
             return float('inf')
-        return (self.wins / self.visits) + exploration_constant * math.sqrt(math.log(self.parent.visits) / self.visits)
+        return (self.wins / self.visits) + c * math.sqrt(
+            math.log(self.parent.visits) / self.visits
+        )
 
-def mcts_search(root_board, iterations=1000):
-    """
-    Thực hiện tìm kiếm Monte Carlo trong số lượt iterations cho trước.
-    """
-    root_node = MCTSNode(root_board)
+    def select(self):
+        return max(self.children, key=lambda n: n.ucb1())
+
+    def expand(self):
+        move = self.untried_moves.pop()
+        start_pos, end_pos = move
+        new_board = self.board.copy() 
+        new_board.move_piece(start_pos, end_pos) 
+        child = MCTSNode(new_board, parent=self, move=move)
+        self.children.append(child)
+        return child
+
+    def simulate(self):
+        current_board = self.board.copy()
+        while current_board.is_terminal() is None:
+            legal_moves = get_all_legal_moves(current_board, current_board.turn)
+            if not legal_moves:
+                break
+            move = random.choice(legal_moves)
+            current_board.move_piece(move[0], move[1])
+        
+        result = current_board.is_terminal()
+        if result == 1: 
+            return 1
+        elif result == -1: 
+            return 0
+        return 0.5 
+
+    def backpropagate(self, result):
+        self.visits += 1
+        self.wins += result
+        if self.parent:
+            self.parent.backpropagate(result)
+
+def find_best_move(board, iterations=1000):
+
+    root = MCTSNode(board.copy())
 
     for _ in range(iterations):
-        node = root_node
+        node = root
+
+        # 1. Selection
+        while node.is_fully_expanded() and node.children:
+            node = node.select()
+
+        # 2. Expansion
+        if node.board.is_terminal() is None:
+            node = node.expand()
+
+        # 3. Simulation
+        result = node.simulate()
         
-        # 1. Selection: Chọn nút có UCB1 cao nhất
-        while not node.untried_moves and node.children:
-            node = max(node.children, key=lambda c: c.ucb1_value())
-            
-        # 2. Expansion: Mở rộng nước đi mới
-        if node.untried_moves:
-            move = random.choice(node.untried_moves)
-            node.untried_moves.remove(move)
-            new_board = node.board.copy()
-            new_board.push(move)
-            new_node = MCTSNode(new_board, parent=node, move=move)
-            node.children.append(new_node)
-            node = new_node
-            
-        # 3. Simulation (Rollout): Đánh ngẫu nhiên đến hết ván
-        temp_board = node.board.copy()
-        while not temp_board.is_game_over():
-            legal_moves = list(temp_board.legal_moves)
-            temp_board.push(random.choice(legal_moves))
+        # 4. Backpropagation
+        node.backpropagate(result)
+
+    if not root.children:
+        return None
         
-        # 4. Backpropagation: Cập nhật kết quả thắng/thua ngược lên gốc
-        result = 1 if temp_board.result() == "1-0" else 0 # Giả sử Trắng thắng
-        while node is not None:
-            node.visits += 1
-            node.wins += result
-            node = node.parent
-            
-    # Trả về nước đi của nút con được ghé thăm nhiều nhất
-    return max(root_node.children, key=lambda c: c.visits).move
+    best_child = max(root.children, key=lambda n: n.visits)
+    return best_child.move
