@@ -3,7 +3,7 @@ Alpha-Beta Pruning với Iterative Deepening & Time Management.
 
 Các tính năng tối ưu:
 1. Iterative Deepening: Tìm kiếm từ depth 1, 2, 3... cho đến khi hết thời gian.
-2. Strict Time Limit: Đảm bảo AI trả về kết quả ngay lập tức khi hết max_time (VD: 5s).
+2. Dynamic Time Limit: Tự động scale thời gian suy nghĩ theo độ sâu (depth) được chọn.
 3. Quiescence Search: Chống hiệu ứng chân trời (sửa lỗi không tìm thấy cách thoát chiếu).
 4. Fast Evaluation: Bỏ quét hanging pieces tĩnh, nhường nhiệm vụ đó cho cây Minimax tự tính toán.
 5. Deterministic Selection: Loại bỏ hàm random, giữ nguyên nước đi sắc bén nhất.
@@ -218,9 +218,15 @@ def alpha_beta_search(board, depth, alpha, beta, maximizing_player, start_time, 
         return (min_eval, best_move)
 
 
-def find_best_move(board, depth=5, max_time=5.0):
+def find_best_move(board, depth=5, max_time=None):
+    # Tính toán lại max_time theo depth nếu không được gán sẵn
+    if max_time is None:
+        max_time = 5.0 + (2 ** (depth - 2)) if depth >= 2 else 5.0
+
     start_time = time.time()
     maximizing = (board.turn == 'white')
+    
+    print(f"Begining to search with depth={depth}, max_time={max_time}s")
     
     best_move_overall = None
     legal_moves = get_all_legal_moves(board, board.turn)
