@@ -1,0 +1,119 @@
+.history-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--overlay-bg);
+  z-index: 100;
+}
+
+.history-panel {
+  padding: var(--space-xl);
+  width: 440px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.history-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.history-header-actions {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+.btn-clear-all {
+  opacity: 0.6;
+  transition: opacity var(--transition-fast), color var(--transition-fast);
+}
+
+.btn-clear-all:hover {
+  opacity: 1;
+  color: #ef4444;
+}
+
+.history-loading, .history-empty {
+  text-align: center;
+  color: var(--text-tertiary);
+  padding: var(--space-xl) 0;
+  font-size: 0.9rem;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.history-item:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+.history-item-info {
+  flex: 1;
+}
+
+.history-item-top {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.history-id {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+.history-mode {
+  font-size: 0.8rem;
+}
+
+.history-status {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.history-item-bottom {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.history-date, .history-moves {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+.btn-delete {
+  opacity: 0.4;
+  transition: opacity var(--transition-fast);
+}
+
+.btn-delete:hover {
+  opacity: 1;
+}

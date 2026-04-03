@@ -1,0 +1,71 @@
+.chess-clock {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs); /* Align nicely with adjacent components */
+}
+
+.clock-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: var(--bg-tertiary);
+  border-radius: 50%;
+  color: var(--text-primary);
+  margin-left: 4px;
+}
+
+.clock-players {
+  display: flex;
+  flex: 1;
+  gap: 8px;
+}
+
+.clock-player {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  background: var(--bg-tertiary);
+  transition: all var(--transition-fast);
+  border: 2px solid transparent;
+}
+
+.clock-player-active {
+  background: var(--bg-primary); /* Stand out a bit */
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+.clock-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.clock-time {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.clock-warning {
+  color: #f39c12;
+}
+
+.clock-critical {
+  color: var(--accent-danger);
+  animation: pulse 1s infinite;
+}

@@ -1,0 +1,254 @@
+/* ============================================================================
+   DESIGN SYSTEM - Chess Game
+   Light/Dark mode support with premium aesthetics
+   ============================================================================ */
+
+/* ---------- CSS Custom Properties (Design Tokens) ---------- */
+:root {
+  /* Typography */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.25);
+  
+  /* Board Colors - Standard Chess.com style */
+  --board-light: #ebecd0;
+  --board-dark: #739552;
+  --board-highlight: rgba(255, 255, 51, 0.5);
+  --board-legal-move: rgba(0, 0, 0, 0.15);
+  --board-legal-capture: rgba(220, 50, 50, 0.35);
+  --board-selected: rgba(255, 255, 51, 0.6);
+  --board-last-move: rgba(255, 255, 51, 0.4);
+  --board-check: rgba(255, 0, 0, 0.45);
+}
+
+/* ---------- Light Theme ---------- */
+[data-theme="light"] {
+  --bg-primary: #e6eae8;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f0f2f1;
+  --bg-glass: rgba(255, 255, 255, 0.85);
+  --bg-glass-border: rgba(0, 0, 0, 0.05);
+  
+  --text-primary: #121814;
+  --text-secondary: #58635b;
+  --text-tertiary: #a2a8a5;
+  
+  --accent-primary: #45b565;
+  --accent-primary-hover: #3ca359;
+  --accent-secondary: #d4a843;
+  --accent-danger: #ea453c;
+  --accent-info: #3498db;
+  --accent-success: #27ae60;
+  
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.15);
+  
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Dark Theme ---------- */
+[data-theme="dark"] {
+  --bg-primary: #0f1621;
+  --bg-secondary: #1a222e;
+  --bg-tertiary: #252e3c;
+  --bg-glass: rgba(26, 34, 46, 0.9);
+  --bg-glass-border: rgba(255, 255, 255, 0.05);
+  
+  --text-primary: #e8eaf0;
+  --text-secondary: #9098a5;
+  --text-tertiary: #505865;
+  
+  --accent-primary: #45b565;
+  --accent-primary-hover: #58c978;
+  --accent-secondary: #e6ba55;
+  --accent-danger: #f85149;
+  --accent-info: #58a6ff;
+  --accent-success: #3fb950;
+  
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --overlay-bg: rgba(0, 0, 0, 0.75);
+}
+
+/* ---------- Global Reset & Base ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-primary);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-tertiary);
+  border-radius: var(--radius-full);
+}
+
+/* ---------- Utility Classes ---------- */
+.glass-panel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  line-height: 1.4;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent-primary);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-primary-hover);
+}
+
+.btn-secondary {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-danger {
+  background: var(--bg-tertiary); /* Muted initial state like the mockups */
+  color: var(--accent-danger);
+  border: 1px solid var(--border-color);
+}
+.btn-danger:hover:not(:disabled) {
+  background: var(--accent-danger);
+  color: #fff;
+}
+
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+.btn-icon:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+/* ---------- Material Icons Adjustments ---------- */
+.material-icons-round {
+  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Typography Utility ---------- */
+.text-gold {
+  color: var(--accent-secondary);
+}
+
+/* ---------- Animations ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--transition-normal) forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn var(--transition-normal) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn var(--transition-normal) forwards;
+}
