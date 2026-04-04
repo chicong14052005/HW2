@@ -1,0 +1,19 @@
+{
+  "name": "chess-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Chess AI - Alpha-Beta Pruning & MCTS",
+  "scripts": {
+    "dev:frontend": "cd frontend && pnpm dev",
+    "dev:backend": "cd backend && python main.py",
+    "dev": "concurrently --names \"BACKEND,FRONTEND\" --prefix-colors \"yellow,cyan\" \"pnpm run dev:backend\" \"pnpm run dev:frontend\"",
+    "install:frontend": "cd frontend && pnpm install",
+    "install:backend": "pip install -r requirements.txt",
+    "postinstall": "pnpm run install:frontend",
+    "build": "cd frontend && pnpm build",
+    "lint": "cd frontend && pnpm lint"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

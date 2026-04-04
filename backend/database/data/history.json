@@ -1,0 +1,264 @@
+{
+  "0552afee": {
+    "id": "0552afee",
+    "mode": "pvp",
+    "ai_algorithm": "alphabeta",
+    "ai_depth": 3,
+    "ai_iterations": 500,
+    "status": "draw",
+    "winner": null,
+    "move_count": 11,
+    "created_at": "2026-04-03T00:48:52.225209",
+    "completed_at": "2026-04-03T00:49:27.215051",
+    "white_ai": null,
+    "black_ai": null
+  },
+  "ccc14df3": {
+    "id": "ccc14df3",
+    "mode": "aivai",
+    "ai_algorithm": "alphabeta",
+    "ai_depth": 2,
+    "ai_iterations": 500,
+    "status": "draw",
+    "winner": null,
+    "move_count": 401,
+    "created_at": "2026-04-03T07:51:51.307511",
+    "completed_at": "2026-04-03T08:11:56.190013",
+    "white_ai": {
+      "algorithm": "alphabeta",
+      "depth": 2,
+      "iterations": 500
+    },
+    "black_ai": {
+      "algorithm": "mcts",
+      "depth": 3,
+      "iterations": 2000
+    }
+  },
+  "29dbe3ee": {
+    "id": "29dbe3ee",
+    "mode": "aivai",
+    "ai_algorithm": "alphabeta",
+    "ai_depth": 2,
+    "ai_iterations": 500,
+    "status": "draw",
+    "winner": null,
+    "move_count": 104,
+    "created_at": "2026-04-03T08:44:28.335568",
+    "completed_at": "2026-04-03T08:51:30.614903",
+    "white_ai": {
+      "algorithm": "alphabeta",
+      "depth": 2,
+      "iterations": 500
+    },
+    "black_ai": {
+      "algorithm": "mcts",
+      "depth": 3,
+      "iterations": 1000
+    }
+  },
+  "a4374dbf": {
+    "id": "a4374dbf",
+    "mode": "pvai",
+    "ai_algorithm": "alphabeta",
+    "ai_depth": 5,
+    "ai_iterations": 500,
+    "status": "draw",
+    "winner": null,
+    "move_count": 1,
+    "created_at": "2026-04-03T14:03:26.370723",
+    "completed_at": "2026-04-03T14:04:24.501830",
+    "white_ai": null,
+    "black_ai": null
+  },
+  "53e43bfc": {
+    "id": "53e43bfc",
+    "mode": "aivai",
+    "ai_algorithm": "alphabeta",
+    "ai_depth": 5,
+    "ai_iterations": 500,
+    "status": "checkmate",
+    "winner": "white",
+    "move_count": 57,
+    "created_at": "2026-04-03T14:24:45.324968",
+    "completed_at": "2026-04-03T14:28:53.202018",
+    "white_ai": {
+      "algorithm": "alphabeta",
+      "depth": 5,
+      "iterations": 500
+    },
+    "black_ai": {
+      "algorithm": "alphabeta",
+      "depth": 2,
+      "iterations": 500
+    }
+  },
+  "48c13cbe": {
+    "id": "48c13cbe",
+    "mode": "aivai",
+    "ai_algorithm": "alphabeta",
+    "ai_depth": 3,
+    "ai_iterations": 500,
+    "status": "checkmate",
+    "winner": "white",
+    "move_count": 131,
+    "created_at": "2026-04-03T17:39:23.745820",
+    "completed_at": "2026-04-03T17:49:10.748555",
+    "white_ai": {
+      "algorithm": "alphabeta",
+      "depth": 3,
+      "iterations": 500
+    },
+    "black_ai": {
+      "algorithm": "mcts",
+      "depth": 3,
+      "iterations": 500
+    }
+  },
+  "423341a0": {
+    "id": "423341a0",
+    "mode": "aivai",
+    "ai_algorithm": "alphabeta",
+    "ai_depth": 5,
+    "ai_iterations": 500,
+    "status": "checkmate",
+    "winner": "white",
+    "move_count": 31,
+    "created_at": "2026-04-03T18:16:59.595371",
+    "completed_at": "2026-04-03T18:19:32.909918",
+    "white_ai": {
+      "algorithm": "alphabeta",
+      "depth": 5,
+      "iterations": 500
+    },
+    "black_ai": {
+      "algorithm": "mcts",
+      "depth": 3,
+      "iterations": 3000
+    }
+  },
+  "5fae575c": {
+    "id": "5fae575c",
+    "mode": "aivai",
+    "ai_algorithm": "alphabeta",
+    "ai_depth": 1,
+    "ai_iterations": 500,
+    "status": "checkmate",
+    "winner": "white",
+    "move_count": 25,
+    "created_at": "2026-04-03T18:20:22.030909",
+    "completed_at": "2026-04-03T18:21:33.255394",
+    "white_ai": {
+      "algorithm": "alphabeta",
+      "depth": 1,
+      "iterations": 500
+    },
+    "black_ai": {
+      "algorithm": "mcts",
+      "depth": 4,
+      "iterations": 2900
+    }
+  },
+  "3822f397": {
+    "id": "3822f397",
+    "mode": "aivai",
+    "ai_algorithm": "alphabeta",
+    "ai_depth": 2,
+    "ai_iterations": 500,
+    "status": "checkmate",
+    "winner": "white",
+    "move_count": 35,
+    "created_at": "2026-04-03T18:35:38.797379",
+    "completed_at": "2026-04-03T18:37:25.785951",
+    "white_ai": {
+      "algorithm": "alphabeta",
+      "depth": 2,
+      "iterations": 500
+    },
+    "black_ai": {
+      "algorithm": "mcts",
+      "depth": 3,
+      "iterations": 2200
+    }
+  },
+  "e689ab59": {
+    "id": "e689ab59",
+    "mode": "aivai",
+    "ai_algorithm": "mcts",
+    "ai_depth": 2,
+    "ai_iterations": 500,
+    "status": "checkmate",
+    "winner": "black",
+    "move_count": 36,
+    "created_at": "2026-04-03T18:37:54.285727",
+    "completed_at": "2026-04-03T18:39:34.894197",
+    "white_ai": {
+      "algorithm": "mcts",
+      "depth": 2,
+      "iterations": 500
+    },
+    "black_ai": {
+      "algorithm": "alphabeta",
+      "depth": 1,
+      "iterations": 2200
+    }
+  },
+  "0a177293": {
+    "id": "0a177293",
+    "mode": "aivai",
+    "ai_algorithm": "mcts",
+    "ai_depth": 2,
+    "ai_iterations": 1500,
+    "status": "checkmate",
+    "winner": "black",
+    "move_count": 32,
+    "created_at": "2026-04-03T18:57:23.037211",
+    "completed_at": "2026-04-03T18:59:59.754573",
+    "white_ai": {
+      "algorithm": "mcts",
+      "depth": 2,
+      "iterations": 1500
+    },
+    "black_ai": {
+      "algorithm": "alphabeta",
+      "depth": 3,
+      "iterations": 2200
+    }
+  },
+  "7dabd7d9": {
+    "id": "7dabd7d9",
+    "mode": "pvp",
+    "ai_algorithm": "alphabeta",
+    "ai_depth": 3,
+    "ai_iterations": 500,
+    "status": "checkmate",
+    "winner": "white",
+    "move_count": 15,
+    "created_at": "2026-04-04T01:09:39.419040",
+    "completed_at": "2026-04-04T01:21:47.927069",
+    "white_ai": null,
+    "black_ai": null
+  },
+  "16817716": {
+    "id": "16817716",
+    "mode": "aivai",
+    "ai_algorithm": "alphabeta",
+    "ai_depth": 1,
+    "ai_iterations": 500,
+    "status": "draw",
+    "winner": null,
+    "move_count": 136,
+    "created_at": "2026-04-04T01:23:16.461091",
+    "completed_at": "2026-04-04T01:28:31.584353",
+    "white_ai": {
+      "algorithm": "alphabeta",
+      "depth": 1,
+      "iterations": 500
+    },
+    "black_ai": {
+      "algorithm": "alphabeta",
+      "depth": 2,
+      "iterations": 500
+    }
+  }
+}

@@ -1,0 +1,60 @@
+.square {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.square-light {
+  background-color: var(--board-light);
+}
+
+.square-dark {
+  background: var(--board-dark);
+}
+
+.square-selected {
+  background-color: var(--board-selected) !important;
+}
+
+.square-last-from,
+.square-last-to {
+  background-color: var(--board-last-move) !important;
+}
+
+.square-check {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 0, 0, 0.6) 0%,
+    rgba(255, 0, 0, 0.3) 40%,
+    transparent 68%
+  ) !important;
+}
+
+.square:hover {
+  filter: brightness(1.08);
+}
+
+/* Legal move dot (empty square) */
+.legal-move-dot {
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  background: var(--board-legal-move);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Legal capture ring (square with opponent piece) */
+.legal-capture-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 5px solid var(--board-legal-capture);
+  pointer-events: none;
+  z-index: 1;
+}
