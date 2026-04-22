@@ -4,7 +4,7 @@
 
 import type { GameState, MoveData, AIAlgorithm, GameMode, AIConfig } from '../types/chess';
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(url, {
