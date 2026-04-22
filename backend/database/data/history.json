@@ -260,5 +260,33 @@
       "depth": 2,
       "iterations": 500
     }
+  },
+  "ca53f340": {
+    "id": "ca53f340",
+    "mode": "pvai",
+    "ai_algorithm": "alphabeta",
+    "ai_depth": 2,
+    "ai_iterations": 500,
+    "status": "checkmate",
+    "winner": "black",
+    "move_count": 36,
+    "created_at": "2026-04-05T09:24:56.126221",
+    "completed_at": "2026-04-05T09:30:56.234561",
+    "white_ai": null,
+    "black_ai": null
+  },
+  "976d7fa0": {
+    "id": "976d7fa0",
+    "mode": "pvai",
+    "ai_algorithm": "mcts",
+    "ai_depth": 3,
+    "ai_iterations": 1500,
+    "status": "checkmate",
+    "winner": "white",
+    "move_count": 43,
+    "created_at": "2026-04-05T09:31:18.464338",
+    "completed_at": "2026-04-05T09:35:24.084486",
+    "white_ai": null,
+    "black_ai": null
   }
 }

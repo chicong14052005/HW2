@@ -226,7 +226,7 @@ def find_best_move(board, depth=5, max_time=None):
     start_time = time.time()
     maximizing = (board.turn == 'white')
     
-    print(f"Begining to search with depth={depth}, max_time={max_time}s")
+    #print(f"Bắt đầu tìm kiếm với depth={depth}, max_time={max_time}s")
     
     best_move_overall = None
     legal_moves = get_all_legal_moves(board, board.turn)
