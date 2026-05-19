@@ -1,17 +1,15 @@
 {
-  "name": "chess-ai",
-  "version": "1.0.0",
+  "name": "chess-master",
+  "version": "2.0.0",
   "private": true,
-  "description": "Chess AI - Alpha-Beta Pruning & MCTS",
+  "description": "Chess Master - Play Chess Against AI with Alpha-Beta Pruning & MCTS",
   "scripts": {
-    "dev:frontend": "cd frontend && pnpm dev",
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
     "dev:backend": "cd backend && python main.py",
-    "dev": "concurrently --names \"BACKEND,FRONTEND\" --prefix-colors \"yellow,cyan\" \"pnpm run dev:backend\" \"pnpm run dev:frontend\"",
-    "install:frontend": "cd frontend && pnpm install",
-    "install:backend": "pip install -r requirements.txt",
-    "postinstall": "pnpm run install:frontend",
-    "build": "cd frontend && pnpm build",
-    "lint": "cd frontend && pnpm lint"
+    "dev:all": "concurrently --names \"BACKEND,FRONTEND\" --prefix-colors \"yellow,cyan\" \"pnpm run dev:backend\" \"pnpm run dev\""
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
@@ -19,15 +17,21 @@
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.106.0",
+    "@types/node": "^25.9.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.5.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "eslint": "^10.4.0",
+    "eslint-config-next": "^16.2.6",
     "lucide-react": "^1.16.0",
     "next": "^16.2.6",
     "postcss": "^8.5.14",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "tailwind-merge": "^3.6.0",
-    "tailwindcss": "^4.3.0"
+    "tailwindcss": "^4.3.0",
+    "typescript": "^6.0.3"
   }
 }
